@@ -32,7 +32,7 @@ public:
 
     void init(size_t);
     void *allocate();
-    void *deallocate(void *);
+    void deallocate(void *);
 };
 
 // 用来根据请求的内存大小分配 slot，如 8 字节映射给 slot0，16字节映射给 slot1
