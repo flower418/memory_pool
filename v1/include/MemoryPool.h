@@ -66,7 +66,7 @@ public:
 
     // 用于创建一个对象
     template<typename T, typename... Args> // 可变参数，&& 表示万能引用
-    T *newElement(Args&&... args) {
+    static T *newElement(Args&&... args) {
         T *p = nullptr;
         if ((p = reinterpret_cast<T *>(HashBucket::useMemory(sizeof(T)))) != nullptr) { // 为 T 分配一片内存
             new(p) T(std::forward<Args>(args)...); // std::forward 进行完美转发
@@ -76,7 +76,7 @@ public:
     }
 
     template<typename T>
-    void deleteElement(T *p) {
+    static void deleteElement(T *p) {
         if (p) {
             p->~T();
             HashBucket::freeMemory(reinterpret_cast<void *>(p), sizeof(T));
